@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <stdio.h>
 #include "CRA_Account.h"
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -101,10 +102,10 @@ namespace sict {
 //        cout << sinArray[0] << endl;
             if (checkNum == sinArray[0]) {
                 sinTF = true;
-                cout << sinTF << endl;
+ //               cout << sinTF << endl;
             } else {
                 sinTF = false;
-                cout << sinTF << endl;
+   //             cout << sinTF << endl;
             }
         }
         return sinTF;
@@ -117,11 +118,13 @@ namespace sict {
             cout << "CRA Account: " << m_sin << endl;
             for(int i = 0; i < MAX_YRS; i++){
                 if(m_balance[i] > 2){
-                    cout << "Years (" << m_year[i] << ") balance owing: " << m_balance[i] << endl;
+			printf("Year (%d) balance owing: %.2lf\n",m_year[i], m_balance[i]) ;
+                   // cout << "Year (" << m_year[i] << ") balance owing: " << m_balance[i] << endl;
                 }else if(m_balance[i] < -2){
-                    cout << "Years (" << m_year[i] << ") refund due: " << m_balance[i] << endl;
+			printf("Year (%d) refund due: %.2lf\n", m_year[i], -(m_balance[i]));
+                   // cout << "Year (" << m_year[i] << ") refund due: " << -(m_balance[i]) << endl;
                 }else{
-                    cout << "Years (" << m_year[i] << ") No balance owing or refund due!" << endl;
+                    cout << "Year (" << m_year[i] << ") No balance owing or refund due!" << endl;
                 }
             }
         } else {
