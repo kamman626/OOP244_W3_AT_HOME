@@ -24,7 +24,7 @@ namespace sict{
         //AT HOME class attributes
         int m_year[MAX_YRS];
         double m_balance[MAX_YRS];
-        int m_years;
+        int m_years = 0;
 
     public:
         CRA_Account();

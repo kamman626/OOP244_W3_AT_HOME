@@ -38,12 +38,11 @@ namespace sict {
     }
 
     void CRA_Account::set(int year, double balance) {
-        static unsigned int m_years = 0;
         if(isValid()){
             m_year[m_years] = year;
             m_balance[m_years] = balance;
+            m_years++;
         }
-        m_years++;
     }
 
     bool CRA_Account::isValid() const {
@@ -72,9 +71,6 @@ namespace sict {
             alternateNum[3] = sinArray[1] * 2;
             alternateNum[4] = '\0';
 
-
-            //cout << alternateNum [0] << ", " << alternateNum[1] << ", " << alternateNum[2] << ", " << alternateNum[3] << endl;
-
             for (int j = 0; j < 4; j++) {
                 if (alternateNum[j] > 10) {
                     sumDigits1[j] = alternateNum[j] % 10 + 1; //calculate less the 10 even number.
@@ -91,21 +87,13 @@ namespace sict {
             }
 
             otherTotal = sinArray[8] + sinArray[6] + sinArray[4] + sinArray[2];
-//        cout << otherTotal << endl;
-//        cout <<"less: "<< lessTenTotal << endl;
-//        cout << greaterThenTotal <<endl;
             Total = (greaterThenTotal + lessTenTotal) + otherTotal;
 
-//        cout << Total << endl;
             int checkNum = (Total / 10 + 1) * 10 - Total;
-//        cout << checkNum << endl;
-//        cout << sinArray[0] << endl;
             if (checkNum == sinArray[0]) {
                 sinTF = true;
- //               cout << sinTF << endl;
             } else {
                 sinTF = false;
-   //             cout << sinTF << endl;
             }
         }
         return sinTF;
@@ -116,16 +104,18 @@ namespace sict {
             cout << "Family Name: " << m_familyName << endl;
             cout << "Given Name : " << m_givenName << endl;
             cout << "CRA Account: " << m_sin << endl;
-            for(int i = 0; i < MAX_YRS; i++){
-                if(m_balance[i] > 2){
-			printf("Year (%d) balance owing: %.2lf\n",m_year[i], m_balance[i]) ;
-                   // cout << "Year (" << m_year[i] << ") balance owing: " << m_balance[i] << endl;
-                }else if(m_balance[i] < -2){
-			printf("Year (%d) refund due: %.2lf\n", m_year[i], -(m_balance[i]));
-                   // cout << "Year (" << m_year[i] << ") refund due: " << -(m_balance[i]) << endl;
-                }else{
-                    cout << "Year (" << m_year[i] << ") No balance owing or refund due!" << endl;
+            if(*m_year != '\0' && *m_balance != '\0'){
+                for(int i = 0; i < m_years; i++){
+                    if(m_balance[i] > 2){
+                        printf("Year (%d) balance owing: %.2lf\n",m_year[i], m_balance[i]) ;
+                    }else if(m_balance[i] < -2){
+                        printf("Year (%d) refund due: %.2lf\n", m_year[i], -(m_balance[i]));
+                    }else{
+                        cout << "Year (" << m_year[i] << ") No balance owing or refund due!" << endl;
+                    }
                 }
+            } else{
+                cout << "Account object is empty!" << endl;
             }
         } else {
             cout << "Account object is empty!" << endl;
