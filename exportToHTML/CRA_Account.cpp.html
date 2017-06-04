@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>CRA_Account.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(187,181,41); }
+.s3 { color: rgb(106,135,89); }
+.s4 { color: rgb(204,120,50); font-weight: bold; }
+.s5 { color: rgb(204,120,50); }
+.s6 { color: rgb(104,151,187); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+CRA_Account.cpp</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">//</span><span class="s1"> 
+</span><span class="s0">// Created by Xiaochen Wang on 2017-06-03.</span><span class="s1"> 
+</span><span class="s0">//</span><span class="s1"> 
+ 
+</span><span class="s2">#include</span><span class="s3"> &lt;iostream&gt;</span><span class="s1"> 
+</span><span class="s2">#include</span><span class="s3"> &lt;stdio.h&gt;</span><span class="s1"> 
+</span><span class="s2">#include</span><span class="s3"> &quot;CRA_Account.h&quot;</span><span class="s1"> 
+</span><span class="s2">#define </span><span class="s1">_CRT_SECURE_NO_WARNINGS 
+ 
+</span><span class="s4">using namespace </span><span class="s1">std</span><span class="s5">;</span><span class="s1"> 
+</span><span class="s4">namespace </span><span class="s1">sict { 
+    CRA_Account::CRA_Account() { 
+        m_sin = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+        *m_familyName = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+        *m_givenName = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+        *m_balance = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+        *m_year = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+        m_years = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">void </span><span class="s1">CRA_Account::set(</span><span class="s4">const char </span><span class="s1">*familyName</span><span class="s5">, </span><span class="s4">const char </span><span class="s1">*givenName</span><span class="s5">, </span><span class="s4">int </span><span class="s1">sin) { 
+        strcpy(m_familyName</span><span class="s5">, </span><span class="s1">familyName)</span><span class="s5">;</span><span class="s1"> 
+        strcpy(m_givenName</span><span class="s5">, </span><span class="s1">givenName)</span><span class="s5">;</span><span class="s1"> 
+        m_sin = sin</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">if </span><span class="s1">(!isValid()) { 
+            *m_givenName = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+            *m_familyName = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+            m_sin = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+            m_years = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+            *m_year = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+            *m_balance = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+        } 
+        </span><span class="s0">/* alternat solution 
+         for (int =0; i != '\0'; i++){ 
+            m_givenName[i] = 0; 
+         } 
+          */</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">void </span><span class="s1">CRA_Account::set(</span><span class="s4">int </span><span class="s1">year</span><span class="s5">, </span><span class="s4">double </span><span class="s1">balance) { 
+        </span><span class="s4">static unsigned int </span><span class="s1">m_years = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">if</span><span class="s1">(isValid()){ 
+            m_year[m_years] = year</span><span class="s5">;</span><span class="s1"> 
+            m_balance[m_years] = balance</span><span class="s5">;</span><span class="s1"> 
+        } 
+        m_years++</span><span class="s5">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">bool </span><span class="s1">CRA_Account::isValid() </span><span class="s4">const </span><span class="s1">{ 
+        </span><span class="s4">bool </span><span class="s1">sinTF</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">tempSin = m_sin</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">alternateNum[</span><span class="s6">4</span><span class="s1">]</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">sumDigits1[</span><span class="s6">4</span><span class="s1">]</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">sumDigits2[</span><span class="s6">4</span><span class="s1">]</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">lessTenTotal = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">greaterThenTotal = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">otherTotal = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+        </span><span class="s4">int </span><span class="s1">Total = </span><span class="s6">0</span><span class="s5">;</span><span class="s1"> 
+ 
+        </span><span class="s4">if </span><span class="s1">(m_sin &gt;= MAX_SIN || m_sin &lt;= MIN_SIN) { 
+            sinTF = </span><span class="s4">false</span><span class="s5">;</span><span class="s1"> 
+        } </span><span class="s4">else </span><span class="s1">{ 
+            </span><span class="s4">int </span><span class="s1">sinArray[</span><span class="s6">9</span><span class="s1">]</span><span class="s5">;</span><span class="s1"> 
+            </span><span class="s4">for </span><span class="s1">(</span><span class="s4">int </span><span class="s1">i = </span><span class="s6">0</span><span class="s5">; </span><span class="s1">i &lt;= </span><span class="s6">9</span><span class="s5">; </span><span class="s1">i++) { 
+                sinArray[i] = tempSin % </span><span class="s6">10</span><span class="s5">;</span><span class="s1"> 
+                tempSin /= </span><span class="s6">10</span><span class="s5">;</span><span class="s1"> 
+            } 
+ 
+            alternateNum[</span><span class="s6">0</span><span class="s1">] = sinArray[</span><span class="s6">7</span><span class="s1">] * </span><span class="s6">2</span><span class="s5">; </span><span class="s0">// Convert single array into  one new array.</span><span class="s1"> 
+            alternateNum[</span><span class="s6">1</span><span class="s1">] = sinArray[</span><span class="s6">5</span><span class="s1">] * </span><span class="s6">2</span><span class="s5">;</span><span class="s1"> 
+            alternateNum[</span><span class="s6">2</span><span class="s1">] = sinArray[</span><span class="s6">3</span><span class="s1">] * </span><span class="s6">2</span><span class="s5">;</span><span class="s1"> 
+            alternateNum[</span><span class="s6">3</span><span class="s1">] = sinArray[</span><span class="s6">1</span><span class="s1">] * </span><span class="s6">2</span><span class="s5">;</span><span class="s1"> 
+            alternateNum[</span><span class="s6">4</span><span class="s1">] = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+ 
+ 
+            </span><span class="s0">//cout &lt;&lt; alternateNum [0] &lt;&lt; &quot;, &quot; &lt;&lt; alternateNum[1] &lt;&lt; &quot;, &quot; &lt;&lt; alternateNum[2] &lt;&lt; &quot;, &quot; &lt;&lt; alternateNum[3] &lt;&lt; endl;</span><span class="s1"> 
+ 
+            </span><span class="s4">for </span><span class="s1">(</span><span class="s4">int </span><span class="s1">j = </span><span class="s6">0</span><span class="s5">; </span><span class="s1">j &lt; </span><span class="s6">4</span><span class="s5">; </span><span class="s1">j++) { 
+                </span><span class="s4">if </span><span class="s1">(alternateNum[j] &gt; </span><span class="s6">10</span><span class="s1">) { 
+                    sumDigits1[j] = alternateNum[j] % </span><span class="s6">10 </span><span class="s1">+ </span><span class="s6">1</span><span class="s5">; </span><span class="s0">//calculate less the 10 even number.</span><span class="s1"> 
+                    greaterThenTotal += sumDigits1[j]</span><span class="s5">;</span><span class="s1"> 
+                } </span><span class="s4">else if </span><span class="s1">(alternateNum[j] == </span><span class="s6">10</span><span class="s1">) { 
+                    sumDigits2[j] = </span><span class="s6">1</span><span class="s5">;</span><span class="s1"> 
+                    lessTenTotal += sumDigits2[j]</span><span class="s5">;</span><span class="s1"> 
+                } </span><span class="s4">else if </span><span class="s1">(alternateNum[j] &lt; </span><span class="s6">10</span><span class="s1">) { 
+                    sumDigits2[j] = alternateNum[j]</span><span class="s5">;</span><span class="s1"> 
+                    lessTenTotal += sumDigits2[j]</span><span class="s5">;</span><span class="s1"> 
+                } </span><span class="s4">else </span><span class="s1">{ 
+                    sumDigits2[j] = </span><span class="s3">'</span><span class="s5">\0</span><span class="s3">'</span><span class="s5">;</span><span class="s1"> 
+                } 
+            } 
+ 
+            otherTotal = sinArray[</span><span class="s6">8</span><span class="s1">] + sinArray[</span><span class="s6">6</span><span class="s1">] + sinArray[</span><span class="s6">4</span><span class="s1">] + sinArray[</span><span class="s6">2</span><span class="s1">]</span><span class="s5">;</span><span class="s1"> 
+</span><span class="s0">//        cout &lt;&lt; otherTotal &lt;&lt; endl;</span><span class="s1"> 
+</span><span class="s0">//        cout &lt;&lt;&quot;less: &quot;&lt;&lt; lessTenTotal &lt;&lt; endl;</span><span class="s1"> 
+</span><span class="s0">//        cout &lt;&lt; greaterThenTotal &lt;&lt;endl;</span><span class="s1"> 
+            Total = (greaterThenTotal + lessTenTotal) + otherTotal</span><span class="s5">;</span><span class="s1"> 
+ 
+</span><span class="s0">//        cout &lt;&lt; Total &lt;&lt; endl;</span><span class="s1"> 
+            </span><span class="s4">int </span><span class="s1">checkNum = (Total / </span><span class="s6">10 </span><span class="s1">+ </span><span class="s6">1</span><span class="s1">) * </span><span class="s6">10 </span><span class="s1">- Total</span><span class="s5">;</span><span class="s1"> 
+</span><span class="s0">//        cout &lt;&lt; checkNum &lt;&lt; endl;</span><span class="s1"> 
+</span><span class="s0">//        cout &lt;&lt; sinArray[0] &lt;&lt; endl;</span><span class="s1"> 
+            </span><span class="s4">if </span><span class="s1">(checkNum == sinArray[</span><span class="s6">0</span><span class="s1">]) { 
+                sinTF = </span><span class="s4">true</span><span class="s5">;</span><span class="s1"> 
+ </span><span class="s0">//               cout &lt;&lt; sinTF &lt;&lt; endl;</span><span class="s1"> 
+            } </span><span class="s4">else </span><span class="s1">{ 
+                sinTF = </span><span class="s4">false</span><span class="s5">;</span><span class="s1"> 
+   </span><span class="s0">//             cout &lt;&lt; sinTF &lt;&lt; endl;</span><span class="s1"> 
+            } 
+        } 
+        </span><span class="s4">return </span><span class="s1">sinTF</span><span class="s5">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">void </span><span class="s1">CRA_Account::display() </span><span class="s4">const </span><span class="s1">{ 
+        </span><span class="s4">if </span><span class="s1">(isValid()) { 
+            cout &lt;&lt; </span><span class="s3">&quot;Family Name: &quot; </span><span class="s1">&lt;&lt; m_familyName &lt;&lt; endl</span><span class="s5">;</span><span class="s1"> 
+            cout &lt;&lt; </span><span class="s3">&quot;Given Name : &quot; </span><span class="s1">&lt;&lt; m_givenName &lt;&lt; endl</span><span class="s5">;</span><span class="s1"> 
+            cout &lt;&lt; </span><span class="s3">&quot;CRA Account: &quot; </span><span class="s1">&lt;&lt; m_sin &lt;&lt; endl</span><span class="s5">;</span><span class="s1"> 
+            </span><span class="s4">for</span><span class="s1">(</span><span class="s4">int </span><span class="s1">i = </span><span class="s6">0</span><span class="s5">; </span><span class="s1">i &lt; MAX_YRS</span><span class="s5">; </span><span class="s1">i++){ 
+                </span><span class="s4">if</span><span class="s1">(m_balance[i] &gt; </span><span class="s6">2</span><span class="s1">){ 
+            printf(</span><span class="s3">&quot;Year (%d) balance owing: %.2lf</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s5">,</span><span class="s1">m_year[i]</span><span class="s5">, </span><span class="s1">m_balance[i]) </span><span class="s5">;</span><span class="s1"> 
+                   </span><span class="s0">// cout &lt;&lt; &quot;Year (&quot; &lt;&lt; m_year[i] &lt;&lt; &quot;) balance owing: &quot; &lt;&lt; m_balance[i] &lt;&lt; endl;</span><span class="s1"> 
+                }</span><span class="s4">else if</span><span class="s1">(m_balance[i] &lt; -</span><span class="s6">2</span><span class="s1">){ 
+            printf(</span><span class="s3">&quot;Year (%d) refund due: %.2lf</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s5">, </span><span class="s1">m_year[i]</span><span class="s5">, </span><span class="s1">-(m_balance[i]))</span><span class="s5">;</span><span class="s1"> 
+                   </span><span class="s0">// cout &lt;&lt; &quot;Year (&quot; &lt;&lt; m_year[i] &lt;&lt; &quot;) refund due: &quot; &lt;&lt; -(m_balance[i]) &lt;&lt; endl;</span><span class="s1"> 
+                }</span><span class="s4">else</span><span class="s1">{ 
+                    cout &lt;&lt; </span><span class="s3">&quot;Year (&quot; </span><span class="s1">&lt;&lt; m_year[i] &lt;&lt; </span><span class="s3">&quot;) No balance owing or refund due!&quot; </span><span class="s1">&lt;&lt; endl</span><span class="s5">;</span><span class="s1"> 
+                } 
+            } 
+        } </span><span class="s4">else </span><span class="s1">{ 
+            cout &lt;&lt; </span><span class="s3">&quot;Account object is empty!&quot; </span><span class="s1">&lt;&lt; endl</span><span class="s5">;</span><span class="s1"> 
+        } 
+    } 
+} 
+</span></pre>
+</body>
+</html>
