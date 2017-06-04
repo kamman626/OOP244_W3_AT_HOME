@@ -20,6 +20,7 @@ namespace sict{
         char m_familyName[MAX_NAME_LENGTH];
         char m_givenName[MAX_NAME_LENGTH];
         int m_sin;
+
         //AT HOME class attributes
         int m_year[MAX_YRS];
         double m_balance[MAX_YRS];
@@ -30,6 +31,7 @@ namespace sict{
         void set(const char* familyName, const char* givenName, int sin);
         bool isValid() const;
         void display() const;
+
         //AT HOME class member function
         void set(int year, double balance);
     };
