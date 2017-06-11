@@ -1,7 +1,3 @@
-//
-// Created by Xiaochen Wang on 2017-06-03.
-//
-
 #include <iostream>
 #include <stdio.h>
 #include "CRA_Account.h"
